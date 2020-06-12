@@ -1,61 +1,30 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: achristo <marvin@42.fr>                    +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/02/16 16:04:28 by achristo          #+#    #+#             */
-/*   Updated: 2020/02/16 17:33:11 by achristo         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "get_next_line.h"
 
-char	*ft_line(int i, char *buffer)
+int get_next_line(int fd, char **line)
 {
-	int 	j;
-	char	*line;
+	static char	*buf;
+	char	*new;
+	int	r;
+	int i;
 
-	j = 0;
-	while (buffer[i + j] != '\n' && buffer[i + j] != '\0')
-		j++;
-	line = (char*)malloc(sizeof(char)*(j + 1));
-	j = 0;
-	while (buffer[i + j] != '\n' && buffer[i + j] != '\0')
-	{
-		line[j] = buffer[i + j];
-		j++;
-	}
-	line[j] = '\0';
-	return (line);
-}
-
-int		get_next_line(int fd, char **line)
-{
-	static int	i;
-	char		*n_buffer;
-	int			j;
-	static char	*buffer;
-	static int	times;
-
-	n_buffer = (char*)malloc(sizeof(char) * (BUFFER_SIZE + 1));
-	read(fd, n_buffer, BUFFER_SIZE);
-	n_buffer[BUFFER_SIZE] = '\0';
-	if (times == 0)
-		buffer = ft_strdup("\0");
-	buffer = ft_strjoin(buffer,n_buffer);
-	times = times + 1;
-	*line = ft_line(i, buffer);
-	j = ft_strlen(*line);
-	i = i + ft_strlen(*line) + 1;
-	if (buffer[i - 1] == '\n')
-	{
-		return (1);
-	}
-	if (buffer[i - 1] == '\0')
-	{
+	if (fd < 0 || BUFFER_SIZE <= 0 || line == NULL)
+		return (-1);
+	if (buf == NULL)
+		buf = strdup("");
+	i = 0;	
+	if ((new = (char*)malloc(sizeof(char)*(BUFFER_SIZE+1))) == NULL)
+		return (-1);
+	if ((r = read(fd, new, BUFFER_SIZE)) < 0)
+		return (-1);
+	new[r] = '\0';
+	buf = ft_strjoin(buf, new);
+	
+	while (buf[i] != '\n' && buf[i] != '\0')
+		i++;
+	if (buf[i+1] == '\0')
 		return (0);
-	}
-	return (-1);
+	*line = ft_substr(buf, 0, i);
+	buf = ft_substr(buf, i+1, ft_strlen(buf)); 
+	free(new);
+	return(1);	
 }
