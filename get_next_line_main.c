@@ -17,16 +17,19 @@ int main ()
 	printf("retorno %d\n", get_next_line(fd, &line));
 	printf("linha %s\n", line);
 	printf("\nterceira rodada\n");
-	printf("retorno %d\n", get_next_line(fd2, &line));
+	printf("retorno %d\n", get_next_line(fd, &line));
 	printf("linha %s\n", line);
 	printf("\nquarta rodada\n");
-	printf("retorno %d\n", get_next_line(fd, &line));
+	printf("retorno %d\n", get_next_line(fd2, &line));
 	printf("linha %s\n", line);
 	printf("\nquinta rodada\n");
-	printf("retorno %d\n", get_next_line(fd, &line));
+	printf("retorno %d\n", get_next_line(fd2, &line));
 	printf("linha %s\n", line);
 	printf("\nsexta rodada\n");
 	printf("retorno %d\n", get_next_line(fd2, &line));
 	printf("linha %s\n", line);
-	return (0);
+	printf("\nsetima rodada\n");
+	printf("retorno %d\n", get_next_line(fd2, &line));
+	printf("linha %s\n", line);
+	return(0);
 }
