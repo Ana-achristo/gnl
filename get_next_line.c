@@ -1,7 +1,7 @@
 #include "get_next_line.h"
 #include <stdio.h>
 
-int ft_isline(char *s)
+int	ft_isline(char *s)
 {
 	size_t i;
 
@@ -15,15 +15,25 @@ int ft_isline(char *s)
 	return (1);
 }
 
+char	*ft_readfile(int fd)
+{
+	char *new;
+	int		r;
 
+	if ((new = (char*)malloc(sizeof(char) * (BUFFER_SIZE + 1))) == NULL)
+		return (NULL);
+	if ((r = read(fd, new, BUFFER_SIZE)) < 0)
+		return (NULL);
+	new[r] = '\0';
+	return (new);
+}
 
-int get_next_line(int fd, char **line)
+int	get_next_line(int fd, char **line)
 {
 	static char	*buf;
-	char	*new;
-	int	r;
-	int i;
-	int count;
+	int			i;
+	int			count;
+	char		*new;
 
 	count = 1;
 	if (fd < 0 || BUFFER_SIZE <= 0 || line == NULL)
@@ -31,31 +41,25 @@ int get_next_line(int fd, char **line)
 	if (buf == NULL)
 		buf = ft_strdup("");
 	while (count == 1)
-	{
-		if ((new = (char*)malloc(sizeof(char)*(BUFFER_SIZE+1))) == NULL)
-			return (-1);	
-		if ((r = read(fd, new, BUFFER_SIZE)) < 0)
+	{	
+		if ((new = ft_readfile(fd)) == NULL)
 			return (-1);
-	//	printf("r=%d\n", r);
-		new[r] = '\0';
-	//	printf("new = \n%s\n", new);
 		buf = ft_strjoin(buf, new);
 		free(new);
 		count = ft_isline(buf);
-		if (r == 0)
+		if (new[0] == '\0')
 			count = 0;
 	}
 	i = 0;
 	while (buf[i] != '\n' && buf[i] != '\0')
 		i++;
-	if (buf[i]  == '\0')
+	if (buf[i] == '\0')
 	{
 		*line = buf;
 		buf = ft_substr(buf, ft_strlen(buf), 0);
 		return (0);
 	}
 	*line = ft_substr(buf, 0, i);
-	buf = ft_substr(buf, i+1, ft_strlen(buf));
-	//printf("buf = \n%s\n", buf);
-	return(1);
+	buf = ft_substr(buf, i + 1, ft_strlen(buf));
+	return (1);
 }
