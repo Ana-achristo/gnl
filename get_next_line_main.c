@@ -5,31 +5,32 @@
 int main ()
 {
 	int fd;
-//	int fd2;
+	int fd2;
 	char *line;
 
+	fopen("texto3", "ABC");
 	line = (char*)malloc(100*sizeof(char*));
 	fd = open ("texto", O_RDONLY);
-//	fd2 = open ("texto2", O_RDONLY);
+	fd2 = open ("texto2", O_RDONLY);
 	printf("retorno %d\n", get_next_line(fd, &line));
 	printf("linha %s\n", line);
-	printf("\nsegunda rodada\n");
+	printf("segunda rodada\n");
 	printf("retorno %d\n", get_next_line(fd, &line));
 	printf("linha %s\n", line);
-	printf("\nterceira rodada\n");
+	printf("terceira rodada\n");
 	printf("retorno %d\n", get_next_line(fd, &line));
 	printf("linha %s\n", line);
-/*	printf("\nquarta rodada\n");
+	printf("quarta rodada\n");
 	printf("retorno %d\n", get_next_line(fd2, &line));
 	printf("linha %s\n", line);
-	printf("\nquinta rodada\n");
+	printf("quinta rodada\n");
 	printf("retorno %d\n", get_next_line(fd2, &line));
 	printf("linha %s\n", line);
-	printf("\nsexta rodada\n");
+	printf("sexta rodada\n");
 	printf("retorno %d\n", get_next_line(fd2, &line));
 	printf("linha %s\n", line);
-	printf("\nsetima rodada\n");
-	printf("retorno %d\n", get_next_line(fd2, &line));
-	printf("linha %s\n", line);*/
+	printf("setima rodada\n");
+	printf("retorno %d\n", get_next_line(fd, &line));
+	printf("linha %s\n", line);
 	return(0);
 }

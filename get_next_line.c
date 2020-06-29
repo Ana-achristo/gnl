@@ -36,7 +36,7 @@ int get_next_line(int fd, char **line)
 			return (-1);	
 		if ((r = read(fd, new, BUFFER_SIZE)) < 0)
 			return (-1);
-		printf("r=%d\n", r);
+	//	printf("r=%d\n", r);
 		new[r] = '\0';
 	//	printf("new = \n%s\n", new);
 		buf = ft_strjoin(buf, new);
@@ -51,6 +51,7 @@ int get_next_line(int fd, char **line)
 	if (buf[i]  == '\0')
 	{
 		*line = buf;
+		buf = ft_substr(buf, ft_strlen(buf), 0);
 		return (0);
 	}
 	*line = ft_substr(buf, 0, i);
