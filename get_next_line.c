@@ -1,5 +1,4 @@
 #include "get_next_line.h"
-#include <stdio.h>
 
 int	ft_isline(char *s)
 {
@@ -15,25 +14,29 @@ int	ft_isline(char *s)
 	return (1);
 }
 
-char	*ft_readfile(int fd)
+int	ft_readfile(int fd, int count, char **buf)
 {
-	char *new;
+	char		*new;
 	int		r;
 
 	if ((new = (char*)malloc(sizeof(char) * (BUFFER_SIZE + 1))) == NULL)
-		return (NULL);
+		return (-1);
 	if ((r = read(fd, new, BUFFER_SIZE)) < 0)
-		return (NULL);
+		return (-1);
 	new[r] = '\0';
-	return (new);
+	*buf = ft_strjoin(*buf, new);
+	free(new);
+	count = ft_isline(*buf);
+	if (new[0] == '\0')
+		count = 0;
+	return (count);
 }
 
 int	get_next_line(int fd, char **line)
 {
+	int count;
 	static char	*buf;
 	int			i;
-	int			count;
-	char		*new;
 
 	count = 1;
 	if (fd < 0 || BUFFER_SIZE <= 0 || line == NULL)
@@ -41,15 +44,8 @@ int	get_next_line(int fd, char **line)
 	if (buf == NULL)
 		buf = ft_strdup("");
 	while (count == 1)
-	{	
-		if ((new = ft_readfile(fd)) == NULL)
+		if ((count = ft_readfile(fd, count, &buf)) == -1)
 			return (-1);
-		buf = ft_strjoin(buf, new);
-		free(new);
-		count = ft_isline(buf);
-		if (new[0] == '\0')
-			count = 0;
-	}
 	i = 0;
 	while (buf[i] != '\n' && buf[i] != '\0')
 		i++;
