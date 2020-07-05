@@ -6,7 +6,7 @@
 /*   By: achristo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/16 16:08:22 by achristo          #+#    #+#             */
-/*   Updated: 2020/02/16 16:10:19 by achristo         ###   ########.fr       */
+/*   Updated: 2020/07/05 10:22:27 by achristo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	ft_isline(char *s)
 
 int	ft_readfile(int fd, int count, char **buf)
 {
-	char		*new;
+	char	*new;
 	int		r;
 
 	if ((new = (char*)malloc(sizeof(char) * (BUFFER_SIZE + 1))) == NULL)
@@ -46,7 +46,7 @@ int	ft_readfile(int fd, int count, char **buf)
 
 int	get_next_line(int fd, char **line)
 {
-	int count;
+	int			count;
 	static char	*buf;
 	int			i;
 
