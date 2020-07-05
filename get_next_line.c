@@ -6,7 +6,7 @@
 /*   By: achristo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/16 16:08:22 by achristo          #+#    #+#             */
-/*   Updated: 2020/07/05 10:22:27 by achristo         ###   ########.fr       */
+/*   Updated: 2020/07/05 11:53:35 by achristo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,10 +37,10 @@ int	ft_readfile(int fd, int count, char **buf)
 		return (-1);
 	new[r] = '\0';
 	*buf = ft_strjoin(*buf, new);
-	free(new);
 	count = ft_isline(*buf);
 	if (new[0] == '\0')
 		count = 0;
+	free(new);
 	return (count);
 }
 
@@ -68,6 +68,6 @@ int	get_next_line(int fd, char **line)
 		return (0);
 	}
 	*line = ft_substr(buf, 0, i);
-	buf = ft_substr(buf, i + 1, ft_strlen(buf));
+	buf = ft_substr(buf, i + 1, (ft_strlen(buf)-i));
 	return (1);
 }
