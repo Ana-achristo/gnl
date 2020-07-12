@@ -26,10 +26,13 @@ int	ft_isline(char *s)
 	return (1);
 }
 
-int	ft_readfile(int fd, int count, char **buf, char *new)
+int	ft_readfile(int fd, int count, char **buf)
 {
 	int	r;
+	char		*new;
 
+	if ((new = (char*)malloc(sizeof(char) * (BUFFER_SIZE + 1))) == NULL)
+		return (-1);
 	if ((r = read(fd, new, BUFFER_SIZE)) < 0)
 		return (-1);
 	new[r] = '\0';
@@ -37,6 +40,7 @@ int	ft_readfile(int fd, int count, char **buf, char *new)
 	count = ft_isline(*buf);
 	if (new[0] == '\0')
 		count = 0;
+	free(new);
 	return (count);
 }
 
@@ -45,7 +49,6 @@ int	get_next_line(int fd, char **line)
 	int			count;
 	static char	*buf;
 	int			i;
-	char		*new;
 
 	count = 1;
 	if (fd < 0 || BUFFER_SIZE <= 0 || line == NULL)
@@ -53,12 +56,9 @@ int	get_next_line(int fd, char **line)
 	if (buf == NULL)
 		if((buf = ft_strdup("")) == NULL)
 			return (-1);
-	if ((new = (char*)malloc(sizeof(char) * (BUFFER_SIZE + 1))) == NULL)
-		return (-1);
 	while (count == 1)
-		if ((count = ft_readfile(fd, count, &buf, new)) == -1)
+		if ((count = ft_readfile(fd, count, &buf)) == -1)
 			return (-1);
-	free(new);
 	i = 0;
 	while (buf[i] != '\n' && buf[i] != '\0')
 		i++;
