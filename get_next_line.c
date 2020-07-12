@@ -6,7 +6,7 @@
 /*   By: achristo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/16 16:08:22 by achristo          #+#    #+#             */
-/*   Updated: 2020/07/05 11:53:35 by achristo         ###   ########.fr       */
+/*   Updated: 2020/07/12 10:44:04 by achristo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ int	get_next_line(int fd, char **line)
 	if (buf[i] == '\0')
 	{
 		*line = buf;
-		buf = ft_substr(buf, ft_strlen(buf), 0);
+		buf = NULL;
 		return (0);
 	}
 	*line = ft_substr(buf, 0, i);
