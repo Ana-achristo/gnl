@@ -6,7 +6,7 @@
 /*   By: achristo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/16 16:08:22 by achristo          #+#    #+#             */
-/*   Updated: 2020/07/12 10:44:04 by achristo         ###   ########.fr       */
+/*   Updated: 2020/07/12 10:55:42 by achristo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,8 @@ int	get_next_line(int fd, char **line)
 	if (fd < 0 || BUFFER_SIZE <= 0 || line == NULL)
 		return (-1);
 	if (buf == NULL)
-		buf = ft_strdup("");
+		if((buf = ft_strdup("")) == NULL)
+			return (-1);
 	if ((new = (char*)malloc(sizeof(char) * (BUFFER_SIZE + 1))) == NULL)
 		return (-1);
 	while (count == 1)
