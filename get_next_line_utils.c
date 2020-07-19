@@ -6,7 +6,7 @@
 /*   By: achristo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/16 16:08:22 by achristo          #+#    #+#             */
-/*   Updated: 2020/07/19 10:35:19 by achristo         ###   ########.fr       */
+/*   Updated: 2020/07/19 10:44:00 by achristo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,28 +33,26 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	size_t	size1;
 	size_t	size2;
 	size_t	i;
-	size_t	j;
 
 	if (s1 == 0 || s2 == 0)
 		return (0);
 	size1 = ft_strlen(s1);
 	size2 = ft_strlen(s2);
-	sjoin = malloc((size1 + size2 + 1) * sizeof(char));
-	if (sjoin == 0)
-		return (0);
+	if ((sjoin = malloc((size1 + size2 + 1) * sizeof(char))) == 0)
+		return (NULL);
 	i = 0;
 	while (i < size1)
 	{
 		sjoin[i] = s1[i];
 		i++;
 	}
-	j = 0;
-	while (j < size2)
+	i = 0;
+	while (i < size2)
 	{
-		sjoin[i + j] = s2[j];
-		j++;
+		sjoin[size1 + i] = s2[i];
+		i++;
 	}
-	sjoin[i + j] = '\0';
+	sjoin[size1 + i] = '\0';
 	return (sjoin);
 }
 
