@@ -6,7 +6,7 @@
 /*   By: achristo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/16 16:08:22 by achristo          #+#    #+#             */
-/*   Updated: 2020/02/16 16:10:19 by achristo         ###   ########.fr       */
+/*   Updated: 2020/07/19 10:35:19 by achristo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,24 +30,26 @@ size_t	ft_strlen(const char *s)
 char	*ft_strjoin(char const *s1, char const *s2)
 {
 	char	*sjoin;
-	size_t	size;
+	size_t	size1;
+	size_t	size2;
 	size_t	i;
 	size_t	j;
 
 	if (s1 == 0 || s2 == 0)
 		return (0);
-	size = ft_strlen(s1) + ft_strlen(s2) + 1;
-	sjoin = malloc(size * sizeof(char));
+	size1 = ft_strlen(s1);
+	size2 = ft_strlen(s2);
+	sjoin = malloc((size1 + size2 + 1) * sizeof(char));
 	if (sjoin == 0)
 		return (0);
 	i = 0;
-	while (i < ft_strlen(s1))
+	while (i < size1)
 	{
 		sjoin[i] = s1[i];
 		i++;
 	}
 	j = 0;
-	while (j < ft_strlen(s2))
+	while (j < size2)
 	{
 		sjoin[i + j] = s2[j];
 		j++;
@@ -81,7 +83,9 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	size_t	i;
 	char	*sub;
 	size_t	start_copy;
+	size_t	len_s;
 
+	len_s = ft_strlen(s);
 	start_copy = ((size_t)start);
 	if (s == 0)
 		return (0);
@@ -89,7 +93,7 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	if (sub == 0)
 		return (0);
 	i = 0;
-	while (i < len && start_copy < ft_strlen(s))
+	while (i < len && start_copy < len_s)
 	{
 		sub[i] = s[start_copy + i];
 		i++;
