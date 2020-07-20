@@ -6,7 +6,7 @@
 /*   By: achristo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/16 16:08:22 by achristo          #+#    #+#             */
-/*   Updated: 2020/07/19 10:47:31 by achristo         ###   ########.fr       */
+/*   Updated: 2020/07/20 07:28:54 by achristo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,12 @@
 
 int	ft_isline(char *s)
 {
-	size_t i;
+	size_t	i;
+	size_t	len;
 
 	i = 0;
-	while (i < ft_strlen(s))
+	len = ft_strlen(s);
+	while (i < len)
 	{
 		if (s[i] == '\n')
 			return (0);
