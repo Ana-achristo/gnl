@@ -6,11 +6,12 @@
 /*   By: achristo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/16 16:08:22 by achristo          #+#    #+#             */
-/*   Updated: 2020/07/20 07:28:54 by achristo         ###   ########.fr       */
+/*   Updated: 2020/07/26 11:13:52 by achristo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
+#include <limits.h>
 
 int	ft_isline(char *s)
 {
@@ -49,28 +50,28 @@ int	ft_readfile(int fd, int count, char **buf)
 int	get_next_line(int fd, char **line)
 {
 	int			count;
-	static char	*buf;
+	static char	*buf[OPEN_MAX];
 	int			i;
 
 	count = 1;
 	if (fd < 0 || BUFFER_SIZE <= 0 || line == NULL)
 		return (-1);
-	if (buf == NULL)
-		if ((buf = ft_strdup("")) == NULL)
+	if (buf[fd] == NULL)
+		if ((buf[fd] = ft_strdup("")) == NULL)
 			return (-1);
 	while (count == 1)
-		if ((count = ft_readfile(fd, count, &buf)) == -1)
+		if ((count = ft_readfile(fd, count, &buf[fd])) == -1)
 			return (-1);
 	i = 0;
-	while (buf[i] != '\n' && buf[i] != '\0')
+	while (buf[fd][i] != '\n' && buf[fd][i] != '\0')
 		i++;
-	if (buf[i] == '\0')
+	if (buf[fd][i] == '\0')
 	{
-		*line = buf;
-		buf = NULL;
+		*line = buf[fd];
+		buf[fd] = NULL;
 		return (0);
 	}
-	*line = ft_substr(buf, 0, i);
-	buf = ft_substr(buf, i + 1, (ft_strlen(buf) - i));
+	*line = ft_substr(buf[fd], 0, i);
+	buf[fd] = ft_substr(buf[fd], i + 1, (ft_strlen(buf[fd]) - i));
 	return (1);
 }
